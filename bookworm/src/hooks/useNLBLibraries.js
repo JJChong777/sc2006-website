@@ -5,7 +5,7 @@ export function useNLBLibraries() {
     fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        data.forEach(lib => );
         // Process your data here
       })
       .catch((error) => console.error("Error fetching libraries:", error));
