@@ -10,7 +10,7 @@ const Map = dynamic(() => import("./components/map"), {
 export default function MapPage() {
   return (
     <>
-      <div className="container p-32">
+      <div className="container mx-auto mt-32 p-16">
         <Map />
       </div>
     </>

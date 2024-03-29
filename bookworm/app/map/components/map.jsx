@@ -59,7 +59,7 @@ function Map() {
         </button>
       )}
 
-      <MapContainer center={mapPosition} zoom={15} style={{ height: "100vh" }}>
+      <MapContainer center={mapPosition} zoom={16} style={{ height: "100vh" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
