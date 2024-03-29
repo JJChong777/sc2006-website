@@ -17,9 +17,9 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace("/"); 
+      router.replace("/");
     }
-  }, [isAuthenticated, router]); 
+  }, [isAuthenticated, router]);
 
   return (
     <>
