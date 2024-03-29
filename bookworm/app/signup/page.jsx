@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { handleSignUp } from "../api/authentication_functions/signup";
-import { supabase } from "../api/db";
+import { handleSignUp } from "../auth/authentication_functions/signup";
+import { supabase } from "../auth/db";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");

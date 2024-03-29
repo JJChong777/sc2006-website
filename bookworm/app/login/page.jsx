@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { handleSignIn } from "../api/authentication_functions/signin";
+import { handleSignIn } from "../auth/authentication_functions/signin";
 
 export default function Login() {
   const [email, setEmail] = useState("");
