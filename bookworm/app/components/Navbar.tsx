@@ -4,6 +4,8 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
+import Link from "next/link"
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -38,31 +40,31 @@ export default function Navbar() {
                 {/*nav links*/}
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {!isAuthenticated && (
-                    <a
+                    <Link
                       href="/login"
                       className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
                     >
                       Login
-                    </a>
+                    </Link>
                   )}
-                  <a
+                  <Link
                     href="/search"
                     className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
                   >
                     Search for a book!
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/map"
                     className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
                   >
                     View Libraries
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/recommendations"
                     className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
                   >
                     Recommend a book
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="flex items-center"></div>
@@ -91,28 +93,29 @@ export default function Navbar() {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="/signout"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
+                            <Link
+                              href="/userlibrary"
+                              className={
+                                classNames(
+                                  active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700"
+                                )
+                              }
                             >
                               Your Profile
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
+                            <Link
                               href="/signout"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
-                              )}
+                          )}
                             >
                               Sign out
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       </Menu.Items>
