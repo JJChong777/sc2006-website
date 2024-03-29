@@ -1,36 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { handleSignIn } from "../auth/authentication_functions/signin";
+import { useAuth } from "../auth/authentication_functions/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { signIn, isAuthenticated } = useAuth();
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const onSignInClick = async () => {
+    try {
+      await signIn(email, password);
+    } catch (error) {}
+  };
 
-  // Define the callbacks
-  const onSuccess = () => router.refresh(); // Or router.push('/dashboard') for navigation
-  const onError = (errorMessage) => alert(errorMessage);
-  const onSignInClick = () => {
-    handleSignIn(email, password, supabase, {
-        onSuccess: () => {
-          // Success logic, e.g., navigate or refresh
-          router.refresh(); // Or router.push('/path-to-navigate')
-        },
-        onError: (errorMessage) => {
-          // Error handling logic, e.g., show a message
-          console.error(errorMessage);
-          alert('Login failed: ' + errorMessage);
-        },
-        onSetEmail: setEmail,
-        onSetPassword: setPassword,
-      });
-    };
-        
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/"); 
+    }
+  }, [isAuthenticated, router]); 
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
