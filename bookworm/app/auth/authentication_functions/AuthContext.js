@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
       if (data) {
         setIsAuthenticated(true);
       } else {
-        setIsAuthenticated(false); // You might want to handle this case differently
+        setIsAuthenticated(false);
       }
     } catch (error) {
       console.error("Error signing in:", error.message);
@@ -29,6 +29,16 @@ export function AuthProvider({ children }) {
       setIsAuthenticated(false);
     }
   };
+  const signOut = async() => 
+  {
+    try {
+      await supabase.auth.signOut();
+      setIsAuthenticated(false);
+    } catch (error) {
+    console.error("Error Signing Out:", error.message);
+    alert("Sign out error: " + error.message);
+  }
+}
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, signIn }}>
