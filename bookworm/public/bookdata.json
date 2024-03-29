@@ -1,0 +1,372 @@
+[
+    {
+        "title": "Divergent / Veronica Roth.",
+        "author": "Roth, Veronica",
+        "brn": 200437637,
+        "isbns": [
+            "9780007538065 (paperback)",
+            "0007538065 (paperback)"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "publisher": [
+            "London : HarperCollins Children's Books"
+        ],
+        "publishDate": "2014.",
+        "subjects": [
+            "Identity (Psychology) Juvenile fiction.",
+            "Families Juvenile fiction.",
+            "Courage Juvenile fiction.",
+            "Social classes Juvenile fiction.",
+            "Dystopias.",
+            "Young adult fiction."
+        ],
+        "physicalDescription": [
+            "487 pages ; 20 cm."
+        ],
+        "summary": [
+            "13+."
+        ],
+        "notes": [
+            "Film tie-in.",
+            "Originally published: New York; London: HarperCollins, 2011.",
+            "\"Now a major motion picture\"--Cover."
+        ],
+        "allowReservation": false,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "audience": [
+            "13+."
+        ],
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": false
+    },
+    {
+        "title": "Divergent / Veronica Roth.",
+        "author": "Roth, Veronica",
+        "brn": 205443349,
+        "isbns": [
+            "9780008468941",
+            "000846894X"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "edition": [
+            "10th anniversary edition."
+        ],
+        "publisher": [
+            "London : HarperCollins Children's Books"
+        ],
+        "publishDate": "2021.",
+        "subjects": [
+            "Dystopias Juvenile fiction.",
+            "Courage Juvenile fiction.",
+            "Grief Juvenile fiction.",
+            "Politics, Practical Juvenile fiction.",
+            "Loyalty Juvenile fiction.",
+            "Identity (Psychology) Juvenile fiction.",
+            "Social classes Juvenile fiction.",
+            "Young adult fiction.",
+            "Dystopias.",
+            "Fiction.",
+            "Young adult works."
+        ],
+        "physicalDescription": [
+            "487, 41 pages ; 20 cm."
+        ],
+        "notes": [
+            "\"Exclusive extras, the histories of the factions; abnegation, amity, candor, dauntless, erudite, the factionless essay: \"What's in a name?\"\"--Page [4] of cover.",
+            "Includes an excerpt from Insurgent by the author.",
+            "Originally published: New York: Katherine Tegen Books, 2011."
+        ],
+        "allowReservation": true,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": true
+    },
+    {
+        "title": "Fen qi zhe = Divergent / Weiruonika Luosi zhu ; Jian Xiuru yi.",
+        "nativeTitle": "分歧者 = Divergent / 薇若妮卡·罗斯著 ; 简秀如译.",
+        "author": "Roth, Veronica",
+        "nativeAuthor": "罗斯, 薇若妮卡",
+        "brn": 201286424,
+        "otherTitles": [
+            "Divergent. Chinese. 2012"
+        ],
+        "otherAuthors": [
+            "Jian, Xiuru, translator."
+        ],
+        "nativeOtherAuthors": [
+            "简秀如, translator."
+        ],
+        "isbns": [
+            "9789861857657",
+            "9861857656"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "edition": [
+            "Chu ban."
+        ],
+        "nativeEdition": [
+            "初版."
+        ],
+        "publisher": [
+            "Taibei Shi : Ying shu Weijing Qundao shang Gao bao guo ji you xian gong si Taiwan fen gong si"
+        ],
+        "nativePublisher": [
+            "台北市 : 英属维京群岛商高宝国际有限公司台湾分公司"
+        ],
+        "publishDate": "2012.",
+        "subjects": [
+            "Identity (Psychology) Fiction.",
+            "Families Fiction.",
+            "Courage Fiction.",
+            "Social classes Fiction.",
+            "Science fiction.",
+            "Young adult fiction.",
+            "Jian, Xiuru, translator."
+        ],
+        "physicalDescription": [
+            "398 pages ; 22 cm."
+        ],
+        "notes": [
+            "Translation of: Divergent."
+        ],
+        "allowReservation": true,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "Chinese"
+        ],
+        "serial": false,
+        "availability": true
+    },
+    {
+        "title": "Divergent / Veronica Roth.",
+        "author": "Roth, Veronica.",
+        "brn": 13818522,
+        "isbns": [
+            "0007420412",
+            "9780007420414"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "publisher": [
+            "London : HarperCollins Children's Books"
+        ],
+        "publishDate": "2011.",
+        "subjects": [
+            "Identity (Psychology) Juvenile fiction.",
+            "Families Juvenile fiction.",
+            "Courage Juvenile fiction.",
+            "Social classes Juvenile fiction.",
+            "Identity Fiction.",
+            "Family Fiction."
+        ],
+        "physicalDescription": [
+            "487 pages; 22 cm"
+        ],
+        "allowReservation": false,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": false
+    },
+    {
+        "title": "The divergent companion : the unauthorized guide to the series / Lois H. Gresh.",
+        "author": "Gresh, Lois H.",
+        "brn": 200198658,
+        "otherAuthors": [
+            "Companion to: Roth, Veronica. Divergent."
+        ],
+        "isbns": [
+            "9781250045102 (paperback)",
+            "125004510X (paperback)"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "edition": [
+            "First edition."
+        ],
+        "publisher": [
+            "New York : St. Martin's Griffin"
+        ],
+        "publishDate": "2014.",
+        "subjects": [
+            "Roth, Veronica. Divergent.",
+            "Roth, Veronica Handbooks, manuals, etc.",
+            "Companion to: Roth, Veronica. Divergent."
+        ],
+        "physicalDescription": [
+            "182 pages ; 21 cm"
+        ],
+        "summary": [
+            "\"The first companion guide to the blockbuster bestselling Divergent trilogy--soon to be a major motion picture Written by the New York Times bestselling author of The Twilight Companion and The Hunger Games Companion, the book takes fans deeper into the post-apocalyptic world created by Veronica Roth--a dystopian Chicago in which humanity has organized itself into five factions, each with its own core value to uphold. At the age of sixteen, Beatrice Prior must choose to which one she will devote her life. The Divergent Companion includes fascinating background facts about the action in all three books--the third book, Allegiant, publishes in October 2013--a revealing biography of the author, and amazing insights into the trilogy's major themes and features. It's everything fans have been hungering for since the very first book! This book is not authorized by Veronica Roth, Katherine Tegen Books, or anyone involved in the Divergent movie. The Divergent Companion is a must-read and a terrific gift for the millions of fans both young and old--especially with the Summit Entertainment film version of Divergent, the first book in the trilogy, hitting theaters in March 2014\"--Provided by publisher."
+        ],
+        "notes": [
+            "\"Written by the New York Times bestselling author of The Twilight Companion and The Hunger Games Companion, the book takes fans deeper into the post-apocalyptic world created by Veronica Roth--a dystopian Chicago in which humanity has organized itself into five factions, each with its own core value to uphold. At the age of sixteen, Beatrice Prior must choose to which one she will devote her life. The Divergent Companion includes fascinating background facts about the action in all three books--the third book, Allegiant, publishes in October 2013--a revealing biography of the author, and amazing insights into the trilogy's major themes and features. It's everything fans have been hungering for since the very first book! This book is not authorized by Veronica Roth, Katherine Tegen Books, or anyone involved in the Divergent movie. The Divergent Companion is a must-read and a terrific gift for the millions of fans both young and old--especially with the Summit Entertainment film version of Divergent, the first book in the trilogy, hitting theaters in March 2014\"-- Provided by publisher."
+        ],
+        "allowReservation": true,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": true
+    },
+    {
+        "title": "The Divergent companion : the unauthorized guide to the series / Lois H. Gresh.",
+        "author": "Gresh, Lois H.",
+        "brn": 200208272,
+        "isbns": [
+            "9781447253761 (paperback)",
+            "1447253760 (paperback)"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "publisher": [
+            "London : Macmillan Children's Books"
+        ],
+        "publishDate": "2014.",
+        "subjects": [
+            "Roth, Veronica Criticism and interpretation.",
+            "Roth, Veronica. Divergent.",
+            "Roth, Veronica. Insurgent.",
+            "Roth, Veronica. Allegiant."
+        ],
+        "physicalDescription": [
+            "179 pages ; 22 cm."
+        ],
+        "summary": [
+            "No warning."
+        ],
+        "allowReservation": true,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "audience": [
+            "No warning."
+        ],
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": true
+    },
+    {
+        "title": "Insurgent / Veronica Roth.",
+        "author": "Roth, Veronica.",
+        "brn": 200178579,
+        "isbns": [
+            "9780062234933",
+            "0062234935"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "edition": [
+            "Collector's edition."
+        ],
+        "publisher": [
+            "New York : Katherine Tegen Books"
+        ],
+        "publishDate": "2012.",
+        "subjects": [
+            "Identity (Philosophical concept) Fiction.",
+            "Families Fiction.",
+            "Courage Fiction.",
+            "Social classes Fiction.",
+            "Science fiction.",
+            "Science fiction."
+        ],
+        "physicalDescription": [
+            "525, 43 pages; 22 cm."
+        ],
+        "summary": [
+            "\"As war surges in the dystopian society around her, sixteen-year-old Divergent Tris Prior must continue trying to save those she loves--and herself--while grappling with haunting questions of grief and forgiveness, identity and loyalty, politics and love\"-- Provided by publisher."
+        ],
+        "notes": [
+            "Sequel to: Divergent.",
+            "Bonus material: Free four: Tobias tells the Divergent story - Q & A with Veronica Roth -- Veronica Roth talks about character death -- Insurgent discussion questions -- Celebrate the series -- Veronica Roth's Divergent play list -- Veronica Roth's Insurgent playlist -- Faction party tips.",
+            "Paperback edition with ISBN 9780007442928 published by: London : HarperCollins Children's. 2012."
+        ],
+        "allowReservation": false,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": false
+    },
+    {
+        "title": "Inside divergent : the initiate's world / by Cecilia Bernard.",
+        "author": "Bernard, Cecilia",
+        "brn": 200209061,
+        "otherAuthors": [
+            "Roth, Veronica. Divergent series."
+        ],
+        "isbns": [
+            "0062315609 (paperback)",
+            "9780062315601 (paperback)"
+        ],
+        "format": {
+            "code": "1",
+            "name": "Book"
+        },
+        "edition": [
+            "First Edition."
+        ],
+        "publisher": [
+            "New York : Katherine Tegen Books, an imprint of HarperCollins Publishers",
+            ""
+        ],
+        "publishDate": "[2013]",
+        "subjects": [
+            "Divergent (Motion picture)",
+            "Roth, Veronica. Divergent series."
+        ],
+        "physicalDescription": [
+            "142 pages : color illustrations ; 21 cm"
+        ],
+        "summary": [
+            "This eye-catching volume takes you inside the film version of Divergent where you'll discover the factions, meet the initiates, and enter the thrilling dystopian world."
+        ],
+        "notes": [
+            "Film tie-in.",
+            "Based upon the Divergent series by Veronica Roth."
+        ],
+        "allowReservation": true,
+        "isRestricted": false,
+        "activeReservationsCount": 0,
+        "language": [
+            "English"
+        ],
+        "serial": false,
+        "availability": true
+    }
+]
