@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 import { useGeolocation } from "@/hooks/useGeolocation";
 
-function Map({ libData }) {
+function Map() {
   const [mapPosition, setMapPosition] = useState([1.297414, 103.854235]);
   const {
     isLoading: isLoadingPosition,
@@ -28,6 +28,7 @@ function Map({ libData }) {
     [geolocationPosition]
   );
 
+  const libData = getLibraries();
   return (
     <div>
       {!geolocationPosition && (
