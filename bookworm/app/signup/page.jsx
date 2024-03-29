@@ -1,29 +1,28 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { handleSignUp } from "../api/authentication_functions/signup";
+import { supabase } from "../api/db";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const router = useRouter()
+  const router = useRouter();
 
-  const supabase = createClientComponentClient();
+  const onSignUp = async (email, password) => {
+    console.log("signing user up");
 
-  const handleSignUp = async () => {
-    await supabase.auth.signUp({
-      email, 
-      password, 
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`
-      }
-    })
-    router.refresh();
-    setEmail('');
-    setPassword('');
-  }
+    handleSignUp(email, password, supabase);
+
+    // setUsername("");
+    // setEmail("");
+    // setPassword("");
+    // router.replace("/");
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -144,7 +143,10 @@ export default function SignUp() {
             <div>
               <button
                 type="button"
-                onClick = {handleSignUp}
+                onClick={() => {
+                  console.log();
+                  onSignUp(email, password);
+                }}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up

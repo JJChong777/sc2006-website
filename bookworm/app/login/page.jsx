@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { handleSignIn } from "../api/authentication_functions/signin";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,18 +11,6 @@ export default function Login() {
 
   const router = useRouter();
   const supabase = createClientComponentClient();
-
-
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password
-    })
-    router.refresh();
-    setEmail('');
-    setPassword('');
-  }
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -94,7 +83,7 @@ export default function Login() {
             <div>
               <button
                 type="button"
-                onClick={(handleSignIn)}
+                onClick={handleSignIn}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
@@ -106,8 +95,7 @@ export default function Login() {
             <a
               href="#"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-            </a>
+            ></a>
           </p>
         </div>
       </div>
