@@ -1,21 +1,40 @@
 "use client";
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import ResultsPage from './results';
 //import logo from 'logo.png'; // Import your logo image
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
-
+  const [redirectToResults, setRedirectToResults] = useState(false);
+  let results = [];
+  
   const handleSearch = async () => {
     try {
       const response = await fetch(`bookdata.json`);
       const data = await response.json();
-      setSearchResults(data.results);
+      const results = data.filter((book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      if (results.length>0){
+        setSearchResults(results);
+        setError('');
+        setRedirectToResults(true);
+      }
+      else{
+        setSearchResults([]);
+        setError('No books found.')
+      }
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
   };
+  if (redirectToResults) {
+    return <Redirect to={{ pathname: '/results', state: { results } }} />;
+  }
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <img src="logo.png" alt="Logo" className="mb-4 h-40 w-25" />
@@ -38,7 +57,7 @@ const SearchPage = () => {
         </div>
         <ul>
           {searchResults.map((result) => (
-            <li key={result.id}>{result.name}</li>
+            <li key={result.id}>{result.title}</li>
           ))}
         </ul>
       </div>
