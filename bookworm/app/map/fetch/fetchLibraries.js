@@ -1,4 +1,4 @@
-export default async function getLibraries() {
+export default async function fetchLibraries() {
   try {
     const response = await fetch("http://localhost:3000/api/librarydata");
 
@@ -9,7 +9,7 @@ export default async function getLibraries() {
 
     // Parse the response based on its content type (JSON, text, etc.)
     const data = await response.json(); // Assuming the response is JSON
-
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
