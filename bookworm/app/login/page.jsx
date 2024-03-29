@@ -11,6 +11,26 @@ export default function Login() {
 
   const router = useRouter();
   const supabase = createClientComponentClient();
+
+  // Define the callbacks
+  const onSuccess = () => router.refresh(); // Or router.push('/dashboard') for navigation
+  const onError = (errorMessage) => alert(errorMessage);
+  const onSignInClick = () => {
+    handleSignIn(email, password, supabase, {
+        onSuccess: () => {
+          // Success logic, e.g., navigate or refresh
+          router.refresh(); // Or router.push('/path-to-navigate')
+        },
+        onError: (errorMessage) => {
+          // Error handling logic, e.g., show a message
+          console.error(errorMessage);
+          alert('Login failed: ' + errorMessage);
+        },
+        onSetEmail: setEmail,
+        onSetPassword: setPassword,
+      });
+    };
+        
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -83,7 +103,7 @@ export default function Login() {
             <div>
               <button
                 type="button"
-                onClick={handleSignIn}
+                onClick={onSignInClick}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
