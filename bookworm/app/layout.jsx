@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
-          <Navbar></Navbar>
+          <Navbar/>
           {children}
         </AuthProvider>
       </body>

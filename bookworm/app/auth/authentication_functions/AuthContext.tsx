@@ -1,13 +1,23 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-
+import { useRouter } from 'next/navigation'
 const supabase = createClientComponentClient();
 
-const AuthContext = createContext();
-
+// @ts-ignore
+const AuthContext = createContext(); 
 export function AuthProvider({ children }) {
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const userData = window.localStorage.getItem("user");
+    if (userData) {
+      setIsAuthenticated(true);
+      setUserData(userData);
+      router.replace('/');
+    }
+  }, []);
 
   const signIn = async (email, password) => {
     try {
@@ -19,7 +29,9 @@ export function AuthProvider({ children }) {
       if (error) throw error;
 
       if (data) {
+        setUserData(data);
         setIsAuthenticated(true);
+        window.localStorage.setItem("user", JSON.stringify(data));
       } else {
         setIsAuthenticated(false);
       }
@@ -29,19 +41,20 @@ export function AuthProvider({ children }) {
       setIsAuthenticated(false);
     }
   };
-  const signOut = async() => 
-  {
+  const signOut = async () => {
     try {
       await supabase.auth.signOut();
       setIsAuthenticated(false);
     } catch (error) {
-    console.error("Error Signing Out:", error.message);
-    alert("Sign out error: " + error.message);
-  }
-}
+      console.error("Error Signing Out:", error.message);
+      alert("Sign out error: " + error.message);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, userData, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
