@@ -209,7 +209,7 @@ const libData = [
   },
 ];
 
-const Map = dynamic(() => import("@/components/map"), {
+const Map = dynamic(() => import("./components/map"), {
   loading: () => <p>loading...</p>,
   ssr: false,
 });
