@@ -4,8 +4,13 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from 'next/navigation'
 const supabase = createClientComponentClient();
 
-// @ts-ignore
-const AuthContext = createContext(); 
+const AuthContext = createContext({
+  isAuthenticated: false,
+  userData: {},
+  signIn: async (email, password) => {},
+  signOut: async () => {}
+}); 
+
 export function AuthProvider({ children }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
