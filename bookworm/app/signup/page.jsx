@@ -12,17 +12,30 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
 
-  const onSignUp = async (email, password) => {
+  const onSignUp = async () => {
     console.log("signing user up");
-
-    handleSignUp(email, password, supabase);
-
-    // setUsername("");
-    // setEmail("");
-    // setPassword("");
-    // router.replace("/");
-  };
-
+  
+    // Check if the passwords match
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+  
+    try {
+      const { error, user } = await handleSignUp(email, password, supabase);
+      if (error) throw error;
+  
+    
+      // setUsername("");
+      // setEmail("");
+      // setPassword("");
+      // setConfirmPassword(""); 
+      // router.replace("/");
+    } catch (err) {
+      console.error("ERROR at signup", err);
+      
+    }
+  }; 
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -143,10 +156,7 @@ export default function SignUp() {
             <div>
               <button
                 type="button"
-                onClick={() => {
-                  console.log();
-                  onSignUp(email, password);
-                }}
+                onClick={onSignUp}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
