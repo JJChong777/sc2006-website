@@ -12,23 +12,40 @@ export default function main() {
   return (
     <div className="bg-white px-6 py-24 sm:py-32 lg:px-8 flex flex-col items-center">
       <img src="logo.png" alt="Logo" className="h-40 w-25" />
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-          Elevate your
-        </h2>
-        <h2 className="text-4xl font-bold tracking-tight text-blue-400 sm:text-6xl">
-          Reading Experience
-        </h2>
-        <p className="mt-6 text-lg leading-8 text-gray-600">
-          Effortlessly search for books, get recommendations, and more!
-        </p>
-        <Link
-          href="/signup"
-          className="mt-8 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Start now!
-        </Link>
-      </div>
+      {/* if not authenticated, display the text to get user to sign up */}
+      {!isAuthenticated && (
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            Elevate your
+          </h2>
+          <h2 className="text-4xl font-bold tracking-tight text-blue-400 sm:text-6xl">
+            Reading Experience
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Effortlessly search for books, get recommendations, and more!
+          </p>
+          <Link
+            href="/signup"
+            className="mt-8 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Sign up now!
+          </Link>
+        </div>
+      )}
+      {/* otherwise, display this instead */}
+      {isAuthenticated && (
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            Welcome, you are
+          </h2>
+          <h2 className="text-4xl font-bold tracking-tight text-blue-400 sm:text-6xl">
+            logged in!
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Explore our app with the navbar above!
+          </p>
+        </div>
+      )}
     </div>
   );
 }
