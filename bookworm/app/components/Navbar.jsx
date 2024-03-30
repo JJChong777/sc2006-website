@@ -6,6 +6,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
 import Link from "next/link";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function Navbar() {
   const { isAuthenticated } = useAuth();
   return (
