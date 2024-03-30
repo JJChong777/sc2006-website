@@ -30,11 +30,13 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto"
-                    src="logo.png"
-                    alt="Your Company"
-                  />
+                  <Link href="/">
+                    <img
+                      className="block h-8 w-auto"
+                      src="logo.png"
+                      alt="Your Company"
+                    />
+                  </Link>
                 </div>
                 {/*nav links*/}
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
