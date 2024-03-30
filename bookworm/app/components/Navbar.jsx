@@ -2,14 +2,9 @@
 
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
-import Link from "next/link"
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import Link from "next/link";
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth();
@@ -95,11 +90,10 @@ export default function Navbar() {
                           {({ active }) => (
                             <Link
                               href="/userlibrary"
-                              className={
-                                classNames(
-                                  active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700"
-                                )
-                              }
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Your Profile
                             </Link>
@@ -112,7 +106,7 @@ export default function Navbar() {
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
-                          )}
+                              )}
                             >
                               Sign out
                             </Link>
