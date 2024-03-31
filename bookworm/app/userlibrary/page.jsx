@@ -1,58 +1,90 @@
 "use client";
+import { FolderIcon } from "@heroicons/react/24/outline";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useState, useEffect } from "react";
+import { useAuth } from "../auth/authentication_functions/AuthContext";
 
-import { useState } from 'react';
+const supabase = createClientComponentClient();
 
-export default function Library() {
-  // Example genres and state to track selected genres
-  const genres = ['Fantasy', 'Science Fiction', 'Mystery', 'Romance'];
-  const [selectedGenres, setSelectedGenres] = useState({});
-
-  const handleGenreChange = (genre) => {
-    setSelectedGenres(prevSelectedGenres => ({
-      ...prevSelectedGenres,
-      [genre]: !prevSelectedGenres[genre]
-    }));
+export default function UserLibrary() {
+  const [books, setBooks] = useState([]);
+  const { userData } = useAuth();
+  const sortBooksAlphabetically = () => {
+    const sortedBooks = [...books].sort((a, b) =>
+      a.booktitle.localeCompare(b.booktitle)
+    );
+    setBooks(sortedBooks);
   };
 
-  const saveGenrePreferences = () => {
-    // Implement save logic, possibly sending selectedGenres to an API
-    console.log('Selected Genres:', selectedGenres);
-  };
+  useEffect(() => {
+    const fetchBooks = async () => {
+      if (userData && userData.id) {
+        console.log("Fetching books for user ID:", userData.id);
+        let { data: fetchedBooks, error } = await supabase
+          .from("userLibrary")
+          .select("booktitle")
+          .eq("user_id", userData.id);
+
+        if (error) {
+          console.error("error", error);
+        } else {
+          // Deduplicate books based on booktitle
+          const titles = new Set();
+          const uniqueBooks = fetchedBooks.filter((book) => {
+            if (!titles.has(book.booktitle)) {
+              titles.add(book.booktitle);
+              return true;
+            }
+            return false;
+          });
+
+          setBooks(uniqueBooks);
+        }
+      } else {
+        console.log("User data or user ID not available");
+      }
+    };
+
+    fetchBooks();
+  }, [userData]);
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-64 bg-blue-900 text-white p-4">
-        <h2 className="text-xl mb-6">My Library</h2>
-        <div className="mb-4">Saved Books</div>
-        <div>No saved books yet.</div>
-        <div className="mt-6">
-          <h3 className="text-lg mb-2">Genre Preferences</h3>
-          {genres.map(genre => (
-            <label key={genre} className="block mb-2">
-              <input
-                type="checkbox"
-                checked={!!selectedGenres[genre]}
-                onChange={() => handleGenreChange(genre)}
-                className="mr-2 leading-tight"
-              />
-              <span className="text-white">
-                {genre}
-              </span>
-            </label>
-          ))}
-          <button
-            onClick={saveGenrePreferences}
-            className="mt-4 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-          >
-            Save Preferences
-          </button>
-        </div>
+    <div className="min-h-screen flex">
+      <div className="w-48 border-r border-gray-200 bg-white">
+        <nav className="flex flex-col py-4">
+          <ul role="list" className="space-y-1">
+            <li>
+              <a
+                href="/genre"
+                className="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-50 pl-8"
+              >
+                Set your genre preferences!
+              </a>
+            </li>
+            <li>
+              <button
+                onClick={sortBooksAlphabetically}
+                className="group flex items-center px-3 py-2 w-full text-left text-sm font-medium rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-50 pl-8"
+              >
+                Sort Alphabetically
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-      {/* Main content */}
-      <div className="flex-1 p-8 bg-gray-100">
-        <h1 className="text-3xl font-bold mb-6">Welcome to Your Library</h1>
-        {/* Content goes here */}
+      <div className="flex-1 overflow-y-auto p-4">
+        <h2 className="text-2xl font-semibold mb-4">Your Library</h2>
+        {books.length > 0 ? (
+          <ul className="space-y-2">
+            {books.map((book, index) => (
+              <li key={index} className="border p-4 rounded-md">
+                <h3 className="text-lg font-bold">{book.booktitle}</h3>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No books found in your library.</p>
+        )}
       </div>
     </div>
   );
