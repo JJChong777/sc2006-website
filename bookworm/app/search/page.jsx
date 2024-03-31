@@ -8,6 +8,7 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
   const [bookQuery, setBookQuery] = useState([]);
+  const [availability, setAvailability] = useState([]);
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
@@ -18,9 +19,7 @@ const SearchPage = () => {
     try {
       // Note: Using a GET request with query parameters
       const response = await fetch(
-        `http://localhost:3000/api/search?keyword=${encodeURIComponent(
-          searchTerm
-        )}`
+        `http://localhost:3000/api/search?keyword=${searchTerm}`
       );
 
       if (!response.ok) {
@@ -44,33 +43,62 @@ const SearchPage = () => {
   console.log(userData);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <img src="logo.png" alt="Logo" className="mb-4 h-40 w-auto" />
-      <h1 className="text-4xl font-bold">Bookworm</h1>
-      <div className="w-full max-w-md p-4 flex flex-col items-center">
-        <input
-          className="w-full border border-gray-300 rounded-md px-3 py-2"
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search for books"
-        />
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-        <button
-          className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
+    <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Flex container to align items horizontally */}
+        <div className="flex flex-wrap items-center justify-between">
+          {/* Container for logo and title */}
+          <div className="flex items-center space-x-4">
+            <img src="logo.png" alt="Logo" className="h-40 w-auto" />
+            <h1 className="text-4xl font-bold">Book Search</h1>
+          </div>
+          {/* Flex container for search input, button, and potentially error message */}
+          <div className="flex flex-col items-center lg:flex-row space-x-2 mt-4 lg:mt-0">
+            <input
+              className="border border-gray-300 rounded-md px-3 py-2"
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for books"
+            />
+            {error && <p className="text-red-500">{error}</p>}
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mt-4 underline">
+          Search Results
+        </h2>
       </div>
-      <ul>
+      <ul
+        role="list"
+        className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
+      >
         {bookQuery.map((book) => (
-          <li>
-            <div>
-              <img
-                src={`https://covers.openlibrary.org/b/isbn/${book.isbns[0]}-L.jpg`}
-              />
-            </div>
+          <li key={book.isbns[0]}>
+            <img
+              className="aspect-[3/2] w-full rounded-2xl object-contain"
+              src={`https://covers.openlibrary.org/b/isbn/${book.isbns[0].trim()}-L.jpg?default=false`}
+              alt={book["title"]}
+              onError={(e) => {
+                e.target.src = "booknotfound.jpg"; // Set a fallback image
+              }}
+            />
+            <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900 text-center">
+              {book.title}
+            </h3>
+            <p className="text-base leading-7 text-gray-600 text-center">
+              {book.author}
+            </p>
+            {book.availability && (
+              <p className="text-base leading-7 text-gray-600 text-center">
+                Available
+              </p>
+            )}
           </li>
         ))}
       </ul>
