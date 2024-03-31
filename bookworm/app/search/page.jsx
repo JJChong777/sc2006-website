@@ -127,9 +127,9 @@ const SearchPage = () => {
             </h3>
             <p className="text-base leading-7 text-gray-600">{book.author}</p>
             {book.availability && (
-              <p className="text-base leading-7 text-gray-600 text-center">
+              <p className="text-base leading-7 text-green-600 text-center">
                 Available in
-                <ul>
+                <ul className="text-gray-600 ">
                   {availabilityData[book.isbns[0].trim()]?.map((loc) => (
                     <li key={loc}>{loc}</li>
                   ))}
