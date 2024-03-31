@@ -21,7 +21,6 @@ export function AuthProvider({ children }) {
       const userData = JSON.parse(userDataString);
       setIsAuthenticated(true);
       setUserData(userData);
-      router.replace("/");
     }
   }, [router]);
 
