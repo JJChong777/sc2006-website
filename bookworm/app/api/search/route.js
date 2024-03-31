@@ -12,7 +12,7 @@ async function getBooks(keyword) {
     redirect: "follow",
   };
   const response = await fetch(
-    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?Keywords=${keyword}`,
+    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?Keywords=${keyword}&Limit=10`,
     requestOptions
   );
 
@@ -29,12 +29,9 @@ export async function GET(request) {
       error: "No keyword specified, try ?keyword={book name here}",
     });
   const data = await getBooks(keyword);
-  data["titles"].forEach((resource) => {
-    if (resource["format"]["name"] === "Book") {
-      resource["bookCover"] = `https://covers.openlibrary.org/b/isbn/${resource[
-        "isbns"
-      ][0].slice(0, 13)}-L.jpg`;
-      bookData.push(resource);
+  data["titles"].forEach((result) => {
+    if (result["format"]["name"] === "Book") {
+      bookData.push(result);
     }
   });
   return NextResponse.json(bookData);
