@@ -12,7 +12,7 @@ async function getBooks(keyword) {
     redirect: "follow",
   };
   const response = await fetch(
-    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?Keywords=${keyword}&Limit=10`,
+    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?Keywords=${keyword}&Limit=15`,
     requestOptions
   );
 

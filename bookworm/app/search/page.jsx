@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
 const SearchPage = () => {
@@ -8,8 +8,7 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
   const [bookQuery, setBookQuery] = useState([]);
-  const [availability, setAvailability] = useState([]);
-
+  const [availabilityData, setAvailabilityData] = useState({});
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
       setError("Please enter a search term.");
@@ -42,6 +41,39 @@ const SearchPage = () => {
 
   console.log(userData);
 
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      const availabilityData = {};
+
+      // Fetch availability for each book
+      if (bookQuery.length > 0) {
+        for (const book of bookQuery) {
+          const isbn = book.isbns[0].trim();
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/availability?ISBN=${isbn}`
+            );
+            if (!response.ok) throw new Error("Network response was not ok.");
+            const data = await response.json();
+            availabilityData[isbn] = [];
+            data.items.forEach((item) =>
+              availabilityData[isbn].push(item["location"]["name"])
+            );
+          } catch (error) {
+            console.error("Error fetching availability:", error);
+            availabilityData[isbn] = "Error fetching availability";
+          }
+        }
+      }
+
+      setAvailabilityData(availabilityData);
+    };
+
+    if (bookQuery.length) {
+      fetchAvailability();
+    }
+  }, [bookQuery]); // Dependency array, re-run the effect if bookQuery changes
+
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -70,16 +102,18 @@ const SearchPage = () => {
             </button>
           </div>
         </div>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mt-4 underline">
-          Search Results
-        </h2>
+        {bookQuery.length > 0 && (
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mt-4 underline">
+            Search Results
+          </h2>
+        )}
       </div>
       <ul
         role="list"
         className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
       >
         {bookQuery.map((book) => (
-          <li key={book.isbns[0]}>
+          <li key={book.isbns[0]} className="text-center">
             <img
               className="aspect-[3/2] w-full rounded-2xl object-contain"
               src={`https://covers.openlibrary.org/b/isbn/${book.isbns[0].trim()}-L.jpg?default=false`}
@@ -88,17 +122,23 @@ const SearchPage = () => {
                 e.target.src = "booknotfound.jpg"; // Set a fallback image
               }}
             />
-            <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900 text-center">
+            <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
               {book.title}
             </h3>
-            <p className="text-base leading-7 text-gray-600 text-center">
-              {book.author}
-            </p>
+            <p className="text-base leading-7 text-gray-600">{book.author}</p>
             {book.availability && (
               <p className="text-base leading-7 text-gray-600 text-center">
-                Available
+                Available in
+                <ul>
+                  {availabilityData[book.isbns[0].trim()]?.map((loc) => (
+                    <li key={loc}>{loc}</li>
+                  ))}
+                </ul>
               </p>
             )}
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Add to saved books
+            </button>
           </li>
         ))}
       </ul>
