@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
+import { addBookToDatabase } from "../components/addbook";
 const SearchPage = () => {
   const { userData } = useAuth();
   const router = useRouter();
@@ -39,7 +40,6 @@ const SearchPage = () => {
     }
   };
 
-  console.log(userData);
 
   useEffect(() => {
     const fetchAvailability = async () => {
@@ -113,11 +113,11 @@ const SearchPage = () => {
         className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
       >
         {bookQuery.map((book) => (
-          <li key={book.isbns[0]} className="text-center">
+          <li key={book.isbns?.[0] || book.title} className="text-center"> {/* Use ISBN or title as a fallback key */}
             <img
               className="aspect-[3/2] w-full rounded-2xl object-contain"
-              src={`https://covers.openlibrary.org/b/isbn/${book.isbns[0].trim()}-L.jpg?default=false`}
-              alt={book["title"]}
+              src={`https://covers.openlibrary.org/b/isbn/${book.isbns?.[0]?.trim()}-L.jpg?default=false`}
+              alt={book.title} loading="lazy"
               onError={(e) => {
                 e.target.src = "booknotfound.jpg"; // Set a fallback image
               }}
@@ -126,17 +126,22 @@ const SearchPage = () => {
               {book.title}
             </h3>
             <p className="text-base leading-7 text-gray-600">{book.author}</p>
-            {book.availability && (
+            {book.availability && book.isbns?.[0] && (
               <p className="text-base leading-7 text-green-600 text-center">
                 Available in
                 <ul className="text-gray-600 ">
-                  {availabilityData[book.isbns[0].trim()]?.map((loc) => (
+                {Array.isArray(availabilityData[book.isbns[0].trim()]) ? (
+                  availabilityData[book.isbns[0].trim()].map((loc) => (
                     <li key={loc}>{loc}</li>
-                  ))}
-                </ul>
+                  ))
+                ) : null}
+              </ul>
               </p>
             )}
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => book.isbns?.[0] && addBookToDatabase(book, userData?.id)}
+            >
               Add to saved books
             </button>
           </li>
@@ -144,6 +149,6 @@ const SearchPage = () => {
       </ul>
     </div>
   );
-};
+                  }  
 
 export default SearchPage;

@@ -16,13 +16,14 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null);
   useEffect(() => {
-    const userData = window.localStorage.getItem("user");
-    if (userData) {
+    const userDataString = window.localStorage.getItem("user");
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
       setIsAuthenticated(true);
       setUserData(userData);
       router.replace("/");
     }
-  }, []);
+  }, [router]);
 
   const signIn = async (email, password) => {
     try {
@@ -33,12 +34,15 @@ export function AuthProvider({ children }) {
 
       if (error) throw error;
 
-      if (data) {
-        setUserData(data);
+      if (data && data.user) {
+        setUserData(data.user);
+        console.log(data.user);
         setIsAuthenticated(true);
-        window.localStorage.setItem("user", JSON.stringify(data));
+        window.localStorage.setItem("user", JSON.stringify(data.user));
+        router.replace("/");
       } else {
         setIsAuthenticated(false);
+        console.error("Sign in successful, but no user data found.");
       }
     } catch (error) {
       console.error("Error signing in:", error.message);
@@ -46,6 +50,7 @@ export function AuthProvider({ children }) {
       setIsAuthenticated(false);
     }
   };
+
   const signOut = async () => {
     try {
       await supabase.auth.signOut();

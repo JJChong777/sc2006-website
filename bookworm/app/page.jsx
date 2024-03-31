@@ -8,7 +8,8 @@ function classNames(...classes) {
 }
 
 export default function main() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, userData } = useAuth();
+  console.log("is authenticated:", isAuthenticated);
   return (
     <div className="bg-white px-6 py-24 sm:py-32 lg:px-8 flex flex-col items-center">
       <img src="logo.png" alt="Logo" className="h-40 w-25" />
@@ -38,11 +39,7 @@ export default function main() {
           <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Welcome,{" "}
             <span className="text-blue-400">
-              {
-                JSON.parse(window.localStorage.getItem("user"))["user"][
-                  "email"
-                ].split("@")[0]
-              }
+              {userData.email.split("@")[0]}
             </span>
           </h2>
 
