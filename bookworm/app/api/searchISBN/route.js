@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import fetch from "node-fetch";
 require("dotenv").config();
 
-async function getBooks(keyword) {
+async function getBooks(ISBN) {
   const myHeaders = new Headers();
   myHeaders.append("X-Api-Key", process.env.NLB_API_KEY);
   myHeaders.append("X-App-Code", process.env.NLB_APP_CODE);
@@ -12,7 +12,7 @@ async function getBooks(keyword) {
     redirect: "follow",
   };
   const response = await fetch(
-    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?Title=${keyword}&Limit=15&-relevancy`,
+    `https://openweb.nlb.gov.sg/api/v2/Catalogue/GetTitles?ISBN=${ISBN}`,
     requestOptions
   );
 
@@ -22,17 +22,11 @@ async function getBooks(keyword) {
 }
 
 export async function GET(request) {
-  const bookData = [];
-  const keyword = request.nextUrl.searchParams.get("keyword");
-  if (!keyword)
+  const ISBN = request.nextUrl.searchParams.get("ISBN");
+  if (!ISBN)
     return NextResponse.json({
-      error: "No keyword specified, try ?keyword={book name here}",
+      error: "No ISBN specified, try ?ISBN={ISBNhere}",
     });
-  const data = await getBooks(keyword);
-  data["titles"].forEach((result) => {
-    if (result["format"]["name"] === "Book") {
-      bookData.push(result);
-    }
-  });
-  return NextResponse.json(bookData);
+  const data = await getBooks(ISBN);
+  return NextResponse.json(data);
 }
