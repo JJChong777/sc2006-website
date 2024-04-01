@@ -18,9 +18,7 @@ const SearchPage = () => {
 
     try {
       // Note: Using a GET request with query parameters
-      const response = await fetch(
-        `http://localhost:3000/api/search?keyword=${searchTerm}`
-      );
+      const response = await fetch(`/api/search?keyword=${searchTerm}`);
 
       if (!response.ok) {
         throw new Error("Search failed");
@@ -40,7 +38,6 @@ const SearchPage = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchAvailability = async () => {
       const availabilityData = {};
@@ -50,9 +47,7 @@ const SearchPage = () => {
         for (const book of bookQuery) {
           const isbn = book.isbns[0].trim();
           try {
-            const response = await fetch(
-              `http://localhost:3000/api/availability?ISBN=${isbn}`
-            );
+            const response = await fetch(`/api/availability?ISBN=${isbn}`);
             if (!response.ok) throw new Error("Network response was not ok.");
             const data = await response.json();
             availabilityData[isbn] = [];
@@ -113,11 +108,14 @@ const SearchPage = () => {
         className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
       >
         {bookQuery.map((book) => (
-          <li key={book.isbns?.[0] || book.title} className="text-center"> {/* Use ISBN or title as a fallback key */}
+          <li key={book.isbns?.[0] || book.title} className="text-center">
+            {" "}
+            {/* Use ISBN or title as a fallback key */}
             <img
               className="aspect-[3/2] w-full rounded-2xl object-contain"
               src={`https://covers.openlibrary.org/b/isbn/${book.isbns?.[0]?.trim()}-L.jpg?default=false`}
-              alt={book.title} loading="lazy"
+              alt={book.title}
+              loading="lazy"
               onError={(e) => {
                 e.target.src = "booknotfound.jpg"; // Set a fallback image
               }}
@@ -130,17 +128,19 @@ const SearchPage = () => {
               <p className="text-base leading-7 text-green-600 text-center">
                 Available in
                 <ul className="text-gray-600 ">
-                {Array.isArray(availabilityData[book.isbns[0].trim()]) ? (
-                  availabilityData[book.isbns[0].trim()].map((loc) => (
-                    <li key={loc}>{loc}</li>
-                  ))
-                ) : null}
-              </ul>
+                  {Array.isArray(availabilityData[book.isbns[0].trim()])
+                    ? availabilityData[book.isbns[0].trim()].map((loc) => (
+                        <li key={loc}>{loc}</li>
+                      ))
+                    : null}
+                </ul>
               </p>
             )}
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => book.isbns?.[0] && addBookToDatabase(book, userData?.id)}
+              onClick={() =>
+                book.isbns?.[0] && addBookToDatabase(book, userData?.id)
+              }
             >
               Add to saved books
             </button>
@@ -149,6 +149,6 @@ const SearchPage = () => {
       </ul>
     </div>
   );
-                  }  
+};
 
 export default SearchPage;

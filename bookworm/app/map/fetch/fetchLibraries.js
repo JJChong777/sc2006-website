@@ -1,6 +1,6 @@
 export default async function fetchLibraries() {
   try {
-    const response = await fetch("http://localhost:3000/api/librarydata");
+    const response = await fetch("/api/librarydata");
 
     // Check for successful response
     if (!response.ok) {

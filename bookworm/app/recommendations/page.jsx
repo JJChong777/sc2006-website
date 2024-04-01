@@ -137,9 +137,7 @@ const BookRecommendations = () => {
 
     try {
       // Note: Using a GET request with query parameters
-      const response = await fetch(
-        `http://localhost:3000/api/chatgpt?userId=${userId}`
-      );
+      const response = await fetch(`/api/chatgpt?userId=${userId}`);
 
       if (!response.ok) {
         throw new Error("Getting recommendations failed");
