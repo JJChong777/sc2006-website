@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function main() {
+export default function Main() {
   const { isAuthenticated, userData } = useAuth();
   console.log("is authenticated:", isAuthenticated);
   return (
