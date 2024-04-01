@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
+require("dotenv").config();
 
 
 const supabase = createClient(
