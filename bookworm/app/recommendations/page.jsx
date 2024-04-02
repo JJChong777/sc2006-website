@@ -128,7 +128,7 @@ const BookCard = ({ book }) => {
 const BookRecommendations = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
-  const [res, setRes] = useState("");
+  const [res, setRes] = useState([]);
   const { userData } = useAuth();
 
   const generateRecommendations = async () => {
@@ -178,9 +178,7 @@ const BookRecommendations = () => {
       </div>
       <div className="flex flex-wrap -mx-4">
         <ul className="text-lg text-center mb-2 p-8">
-          {res.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+          {res.length > 0 && res.map((item) => <li key={item}>{item}</li>)}
         </ul>
         {/* {books.length > 0 ? (
           books.map((book) => <BookCard key={book.isbn} book={book} />)
