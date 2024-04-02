@@ -144,7 +144,8 @@ const BookRecommendations = () => {
       }
 
       const recommendations = await response.json();
-      setRes(res);
+      setRes(recommendations.recommendations.content);
+      console.log(recommendations.recommendations.content);
       const bookEntries = recommendations.recommendations.content.split("\n");
       console.log(bookEntries);
       if (bookEntries.length > 5) {
@@ -172,11 +173,12 @@ const BookRecommendations = () => {
         </button>
       </div>
       <div className="flex flex-wrap -mx-4">
-        {books.length > 0 ? (
+        <h3 className="font-bold text-lg text-center mb-2">{res}</h3>
+        {/* {books.length > 0 ? (
           books.map((book) => <BookCard key={book.isbn} book={book} />)
         ) : (
           <p>No reccomendations yet!</p>
-        )}
+        )} */}
       </div>
     </div>
   );
