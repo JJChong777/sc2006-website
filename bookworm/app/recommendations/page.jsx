@@ -91,7 +91,8 @@ const BookCard = ({ book }) => {
 const BookRecommendations = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
-  const [availabilityData, setAvailabilityData] = useState({});
+  // const [availabilityData, setAvailabilityData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { userData } = useAuth();
 
   // useEffect(() => {
@@ -125,6 +126,8 @@ const BookRecommendations = () => {
   // }, [books]); // Dependency array, re-run the effect if books changes
 
   const generateRecommendations = async () => {
+    setIsLoading(true);
+    setBooks([]);
     const userId = userData.id;
     if (!userId) return;
 
@@ -140,6 +143,7 @@ const BookRecommendations = () => {
       const books = JSON.parse(recommendations.recommendations.content).books;
       console.log(books);
       setBooks(books);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching recommendations:", error);
       setError("Failed to fetch recommendations.");
@@ -160,8 +164,14 @@ const BookRecommendations = () => {
       <div className="flex flex-wrap -mx-4">
         {books.length > 0 ? (
           books.map((book) => <BookCard key={book.ISBN} book={book} />)
+        ) : error ? (
+          <p className="mx-auto text-red-700 text-3xl">{error}</p>
+        ) : isLoading ? (
+          <p className="mx-auto text-green-700 text-3xl">
+            ChatGPT is loading recommendations...
+          </p>
         ) : (
-          <p>No reccomendations yet!</p>
+          <p className="mx-auto text-3xl">No recommendations yet.</p>
         )}
       </div>
     </div>
