@@ -144,17 +144,21 @@ const BookRecommendations = () => {
       }
 
       const recommendations = await response.json();
-      setRes(recommendations.recommendations.content);
-      console.log(recommendations.recommendations.content);
       const bookEntries = recommendations.recommendations.content.split("\n");
+      // if(bookEntries.length > 5)
+      // setRes(bookEntries);
       console.log(bookEntries);
+
       if (bookEntries.length > 5) {
-        setBooks(filterMethod1(bookEntries));
-        console.log(books);
+        setRes(bookEntries.filter((item) => item.trim() !== ""));
+        // console.log(books);
       } else {
-        setBooks(filterMethod2(bookEntries));
-        console.log(books);
+        setRes(bookEntries);
       }
+      // else {
+      //   setBooks(filterMethod2(bookEntries));
+      //   console.log(books);
+      // }
     } catch (error) {
       console.error("Error fetching recommendations:", error);
       setError("Failed to fetch recommendations.");
@@ -173,7 +177,11 @@ const BookRecommendations = () => {
         </button>
       </div>
       <div className="flex flex-wrap -mx-4">
-        <h3 className="font-bold text-lg text-center mb-2">{res}</h3>
+        <ul className="text-lg text-center mb-2 p-8">
+          {res.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
         {/* {books.length > 0 ? (
           books.map((book) => <BookCard key={book.isbn} book={book} />)
         ) : (
