@@ -60,12 +60,14 @@ export default function Navbar() {
                   >
                     View Libraries
                   </Link>
-                  <Link
-                    href="/recommendations"
-                    className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Recommend a book
-                  </Link>
+                  {isAuthenticated && (
+                    <Link
+                      href="/recommendations"
+                      className="border-b-2 border-transparent inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:border-gray-300 hover:text-gray-700"
+                    >
+                      Recommend a book
+                    </Link>
+                  )}
                 </div>
 
                 <div className="flex items-center"></div>
@@ -129,20 +131,38 @@ export default function Navbar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 pt-2 pb-4">
               {/* Mobile menu items */}
+              {!isAuthenticated && (
+                <Disclosure.Button
+                  as="a"
+                  href="/login"
+                  className="block bg-indigo-50 border-l-4 border-indigo-500 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                >
+                  Login
+                </Disclosure.Button>
+              )}
               <Disclosure.Button
                 as="a"
-                href="#"
-                className="block bg-indigo-50 border-l-4 border-indigo-500 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
+                href="/search"
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
               >
-                Team
+                Search for a book!
               </Disclosure.Button>
+              <Disclosure.Button
+                as="a"
+                href="/map"
+                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+              >
+                View Libraries
+              </Disclosure.Button>
+              {isAuthenticated && (
+                <Disclosure.Button
+                  as="a"
+                  href="/recommendations"
+                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+                >
+                  View Libraries
+                </Disclosure.Button>
+              )}
               {/* Add more mobile menu items as needed */}
             </div>
           </Disclosure.Panel>
