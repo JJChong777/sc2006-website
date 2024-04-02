@@ -177,7 +177,7 @@ const BookRecommendations = () => {
         </button>
       </div>
       <div className="flex flex-wrap -mx-4">
-        <ul className="text-lg text-center mb-2 p-8">
+        <ul className="text-lg text-center mb-2 p-8 ml-16">
           {res.length > 0 && res.map((item) => <li key={item}>{item}</li>)}
         </ul>
         {/* {books.length > 0 ? (
