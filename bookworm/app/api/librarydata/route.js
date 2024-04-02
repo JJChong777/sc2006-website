@@ -38,16 +38,20 @@ function parseFeed() {
 
 export async function GET() {
   const libData = [];
-  const data = await parseFeed();
-  for (const item of data) {
-    if (item.title.toLowerCase().includes("library")) {
-      libData.push({
-        libName: item.title,
-        libAddress: item["rss:address"]["#"],
-        libCoords: item["georss:point"]["#"].split(" ").map(Number),
-        libOpenHours: item["rss:operatinghours"]["#"],
-      });
+  try {
+    const data = await parseFeed();
+    for (const item of data) {
+      if (item.title.toLowerCase().includes("library")) {
+        libData.push({
+          libName: item.title,
+          libAddress: item["rss:address"]["#"],
+          libCoords: item["georss:point"]["#"].split(" ").map(Number),
+          libOpenHours: item["rss:operatinghours"]["#"],
+        });
+      }
     }
+    return NextResponse.json(libData);
+  } catch {
+    return NextResponse.json({ error: "libData not ready" });
   }
-  return NextResponse.json(libData);
 }
