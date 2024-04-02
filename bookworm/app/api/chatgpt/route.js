@@ -39,7 +39,7 @@ export async function GET(request) {
 
     const prompt = `Based on the following books: ${bookTitles.join(
       ", "
-    )}, what are 5 similar book ISBNs and author you would recommend?`;
+    )}, what are 5 similar book ISBNs and author you would recommend? Only provide a RFC8259 compliant JSON response, following this format without deviation. The overall object key must be books, and each item in the JSON response must only have object keys of title, ISBN and author respectively, with no dashes in the ISBN`;
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

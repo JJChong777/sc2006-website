@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
 
 // Sample book data
@@ -54,60 +54,13 @@ import { useAuth } from "../auth/authentication_functions/AuthContext";
 //   },
 // ];
 
-function filterMethod1(bookEntries) {
-  const books = [];
-  let currentBook = {}; // Object to store current book data
-
-  for (const entry of bookEntries) {
-    // Check for empty string (end of current book)
-    if (entry.trim() === "") {
-      if (Object.keys(currentBook).length > 0) {
-        // Only add if data exists
-        books.push(currentBook); // Add current book to array
-      }
-      currentBook = {}; // Reset object for next book
-    } else {
-      const parts = entry.trim().split(": "); // Split by colon (": ")
-      const key = parts[0].toLowerCase(); // Convert key to lowercase
-      const value = parts[1]; // Extract value
-
-      currentBook[key] = value; // Add key-value pair to current book
-    }
-  }
-
-  // Add the last book if data exists
-  if (Object.keys(currentBook).length > 0) {
-    books.push(currentBook);
-  }
-
-  return books;
-}
-
-function filterMethod2(bookEntries) {
-  const bookDetails = [];
-  for (const entry of bookEntries) {
-    const parts = entry.split(" - ISBN: "); // Split each entry by ISBN delimiter
-
-    if (parts.length === 2) {
-      const titlePart = parts[0].trim(); // Title is the entire first part trimmed
-      const author = titlePart.split(/by |: /).pop(); // Extract author (after "by" or ":")
-      const isbn = parts[1].trim().replace(/-/g, ""); // Extract ISBN (trimmed)
-
-      bookDetails.push({ title: titlePart.slice(3), author, isbn }); // Add details to an object
-    } else {
-      console.warn("Invalid format for:", entry); // Warn for invalid entries
-    }
-  }
-  return bookDetails;
-}
-
 const BookCard = ({ book }) => {
   return (
-    <div className="w-1/6 p-4 flex flex-col">
+    <div className="w-1/6 p-4 flex flex-col" key={book.ISBN}>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
         <img
           className="flex-shrink-0 w-full h-48 object-contain"
-          src={`https://covers.openlibrary.org/b/isbn/${book.isbns?.[0]?.trim()}-L.jpg?default=false`}
+          src={`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg?default=false`}
           alt={book.title}
           loading="lazy"
           onError={(e) => {
@@ -119,6 +72,16 @@ const BookCard = ({ book }) => {
           <p className="text-sm text-gray-600 text-center mt-2">
             By {book.author}
           </p>
+          {/* <p className="text-base leading-7 text-green-600 text-center">
+            Available in
+            <ul className="text-gray-600 ">
+              {Array.isArray(availabilityData[book.ISBN])
+                ? availabilityData[book.ISBN].map((loc) => (
+                    <li key={loc}>{loc}</li>
+                  ))
+                : null}
+            </ul>
+          </p> */}
         </div>
       </div>
     </div>
@@ -128,8 +91,38 @@ const BookCard = ({ book }) => {
 const BookRecommendations = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
-  const [res, setRes] = useState([]);
+  const [availabilityData, setAvailabilityData] = useState({});
   const { userData } = useAuth();
+
+  // useEffect(() => {
+  //   const fetchAvailability = async () => {
+  //     const availabilityData = {};
+
+  //     // Fetch availability for each book
+  //     for (const book of books) {
+  //       const isbn = book.ISBN.trim();
+  //       try {
+  //         const response = await fetch(`/api/availability?ISBN=${isbn}`);
+  //         if (!response.ok) throw new Error("Network response was not ok.");
+  //         const data = await response.json();
+  //         availabilityData[isbn] = [];
+  //         if (data.items.length <= 0) availabilityData[isbn] = null;
+  //         data.items.forEach((item) =>
+  //           availabilityData[isbn].push(item["location"]["name"])
+  //         );
+  //       } catch (error) {
+  //         console.error("Error fetching availability:", error);
+  //         availabilityData[isbn] = null;
+  //       }
+  //     }
+
+  //     setAvailabilityData(availabilityData);
+  //   };
+
+  //   if (books.length) {
+  //     fetchAvailability();
+  //   }
+  // }, [books]); // Dependency array, re-run the effect if books changes
 
   const generateRecommendations = async () => {
     const userId = userData.id;
@@ -144,21 +137,9 @@ const BookRecommendations = () => {
       }
 
       const recommendations = await response.json();
-      const bookEntries = recommendations.recommendations.content.split("\n");
-      // if(bookEntries.length > 5)
-      // setRes(bookEntries);
-      console.log(bookEntries);
-
-      if (bookEntries.length > 5) {
-        setRes(bookEntries.filter((item) => item.trim() !== ""));
-        // console.log(books);
-      } else {
-        setRes(bookEntries);
-      }
-      // else {
-      //   setBooks(filterMethod2(bookEntries));
-      //   console.log(books);
-      // }
+      const books = JSON.parse(recommendations.recommendations.content).books;
+      console.log(books);
+      setBooks(books);
     } catch (error) {
       console.error("Error fetching recommendations:", error);
       setError("Failed to fetch recommendations.");
@@ -177,14 +158,11 @@ const BookRecommendations = () => {
         </button>
       </div>
       <div className="flex flex-wrap -mx-4">
-        <ul className="text-lg text-center mb-2 p-8 ml-16">
-          {res.length > 0 && res.map((item) => <li key={item}>{item}</li>)}
-        </ul>
-        {/* {books.length > 0 ? (
-          books.map((book) => <BookCard key={book.isbn} book={book} />)
+        {books.length > 0 ? (
+          books.map((book) => <BookCard key={book.ISBN} book={book} />)
         ) : (
           <p>No reccomendations yet!</p>
-        )} */}
+        )}
       </div>
     </div>
   );
