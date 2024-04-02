@@ -6,36 +6,51 @@ import { handleSignUp } from "../auth/authentication_functions/signup";
 import { supabase } from "../auth/db";
 
 export default function SignUp() {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const router = useRouter();
+  // const router = useRouter();
 
   const onSignUp = async () => {
     console.log("signing user up");
-  
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
+    if (!passwordRegex.test(password)) {
+      alert(
+        "Password must:\n- Be 8 to 32 characters long\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Contain at least one special character (e.g., !@#$%^&*)"
+      );
+      return;
+    }
+
     // Check if the passwords match
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
-  
+
     try {
       const { error, user } = await handleSignUp(email, password, supabase);
       if (error) throw error;
-  
-    
+
       // setUsername("");
-      // setEmail("");
-      // setPassword("");
-      // setConfirmPassword(""); 
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      alert("Sign up successful! Check your email to confirm your signup");
       // router.replace("/");
     } catch (err) {
       console.error("ERROR at signup", err);
-      
     }
-  }; 
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
