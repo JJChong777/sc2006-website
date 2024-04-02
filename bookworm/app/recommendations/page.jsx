@@ -56,35 +56,22 @@ import { useAuth } from "../auth/authentication_functions/AuthContext";
 
 const BookCard = ({ book }) => {
   return (
-    <div className="w-1/6 p-4 flex flex-col" key={book.ISBN}>
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
-        <img
-          className="flex-shrink-0 w-full h-48 object-contain"
-          src={`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg?default=false`}
-          alt={book.title}
-          loading="lazy"
-          onError={(e) => {
-            e.target.src = "booknotfound.jpg"; // Set a fallback image
-          }}
-        />
-        <div className="p-4 flex-1 flex flex-col justify-between">
-          <h3 className="font-bold text-lg text-center mb-2">{book.title}</h3>
-          <p className="text-sm text-gray-600 text-center mt-2">
-            By {book.author}
-          </p>
-          {/* <p className="text-base leading-7 text-green-600 text-center">
-            Available in
-            <ul className="text-gray-600 ">
-              {Array.isArray(availabilityData[book.ISBN])
-                ? availabilityData[book.ISBN].map((loc) => (
-                    <li key={loc}>{loc}</li>
-                  ))
-                : null}
-            </ul>
-          </p> */}
-        </div>
-      </div>
-    </div>
+    <li key={book.ISBN} className="text-center">
+      {/* Use ISBN or title as a fallback key */}
+      <img
+        className="aspect-[3/2] w-full rounded-2xl object-contain"
+        src={`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg?default=false`}
+        alt={book.title}
+        loading="lazy"
+        onError={(e) => {
+          e.target.src = "booknotfound.jpg"; // Set a fallback image
+        }}
+      />
+      <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+        {book.title}
+      </h3>
+      <p className="text-base leading-7 text-gray-600">{book.author}</p>
+    </li>
   );
 };
 
@@ -163,7 +150,14 @@ const BookRecommendations = () => {
       </div>
       <div className="flex flex-wrap -mx-4">
         {books.length > 0 ? (
-          books.map((book) => <BookCard key={book.ISBN} book={book} />)
+          <ul
+            role="list"
+            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
+          >
+            {books.map((book) => (
+              <BookCard key={book.ISBN} book={book} />
+            ))}
+          </ul>
         ) : error ? (
           <p className="mx-auto text-red-700 text-3xl">{error}</p>
         ) : isLoading ? (

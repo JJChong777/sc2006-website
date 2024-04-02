@@ -163,7 +163,7 @@ export default function Navbar() {
                   Recommend a a book
                 </Disclosure.Button>
               )}
-              {isAuthenticated && (
+              {/* {isAuthenticated && (
                 <Disclosure.Button
                   as="a"
                   href="/userlibrary"
@@ -180,7 +180,7 @@ export default function Navbar() {
                 >
                   Logout
                 </Disclosure.Button>
-              )}
+              )} */}
               {/* Add more mobile menu items as needed */}
             </div>
           </Disclosure.Panel>

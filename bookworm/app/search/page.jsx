@@ -109,7 +109,6 @@ const SearchPage = () => {
       >
         {bookQuery.map((book) => (
           <li key={book.isbns?.[0] || book.title} className="text-center">
-            {" "}
             {/* Use ISBN or title as a fallback key */}
             <img
               className="aspect-[3/2] w-full rounded-2xl object-contain"
