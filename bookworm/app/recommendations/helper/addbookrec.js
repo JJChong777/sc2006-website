@@ -7,7 +7,7 @@ async function addBookToDatabaseRec(book, userId) {
     .insert([
       {
         ISBN: book.ISBN,
-        booktitle: book.title,
+        booktitle: `${book.title} / ${book.author}`,
         user_id: userId,
       },
     ]);
@@ -18,7 +18,7 @@ async function addBookToDatabaseRec(book, userId) {
   }
 
   console.log("Book saved successfully:", data);
-  alert(`${book.title} added to user library!`);
+  alert(`${book.title} / ${book.author} added to user library!`);
   return true;
 }
 
