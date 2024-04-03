@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
-import { addBookToDatabase } from "../components/addbook";
+import { addBookToDatabaseSearch } from "./helper/addbooksearch";
 const SearchPage = () => {
   const { userData } = useAuth();
   const router = useRouter();
@@ -138,7 +138,7 @@ const SearchPage = () => {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               onClick={() =>
-                book.isbns?.[0] && addBookToDatabase(book, userData?.id)
+                book.isbns?.[0] && addBookToDatabaseSearch(book, userData?.id)
               }
             >
               Add to saved books

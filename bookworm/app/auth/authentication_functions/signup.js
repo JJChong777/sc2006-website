@@ -8,8 +8,12 @@ export const handleSignUp = async (email, password, supabase) => {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
+    // console.log(`USER: ${response.data}`);
+    // console.log(`ERROR: ${response.error}`);
     console.log(response);
+    return { user: response.data, error: response.error };
   } catch (err) {
-    console.log("ERROR at signup", err);
+    console.log("ERROR at signup", response.error);
+    return { user: response.data, error: response.error };
   }
 };

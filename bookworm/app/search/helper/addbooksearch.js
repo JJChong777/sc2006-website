@@ -1,7 +1,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 const supabase = createClientComponentClient();
 
-async function addBookToDatabase(book, userId) {
+async function addBookToDatabaseSearch(book, userId) {
   const { data, error } = await supabase
     .from("userLibrary") // Ensure this matches your actual table name
     .insert([
@@ -18,7 +18,8 @@ async function addBookToDatabase(book, userId) {
   }
 
   console.log("Book saved successfully:", data);
+  alert(`${book.title} added to user library!`);
   return true;
 }
 
-export { addBookToDatabase };
+export { addBookToDatabaseSearch };

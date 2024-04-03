@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
+import { addBookToDatabaseRec } from "./helper/addbookrec";
 
 // Sample book data
 // const initialBooks = [
@@ -54,26 +55,11 @@ import { useAuth } from "../auth/authentication_functions/AuthContext";
 //   },
 // ];
 
-const BookCard = ({ book }) => {
-  return (
-    <li key={book.ISBN} className="text-center">
-      {/* Use ISBN or title as a fallback key */}
-      <img
-        className="aspect-[3/2] w-full rounded-2xl object-contain"
-        src={`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg?default=false`}
-        alt={book.title}
-        loading="lazy"
-        onError={(e) => {
-          e.target.src = "booknotfound.jpg"; // Set a fallback image
-        }}
-      />
-      <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-        {book.title}
-      </h3>
-      <p className="text-base leading-7 text-gray-600">{book.author}</p>
-    </li>
-  );
-};
+// const BookCard = ({ book }) => {
+//   return (
+
+//   );
+// };
 
 const BookRecommendations = () => {
   const [books, setBooks] = useState([]);
@@ -155,7 +141,30 @@ const BookRecommendations = () => {
             className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 p-16"
           >
             {books.map((book) => (
-              <BookCard key={book.ISBN} book={book} />
+              <li key={book.ISBN} className="text-center">
+                {/* Use ISBN aa a key */}
+                <img
+                  className="aspect-[3/2] w-full rounded-2xl object-contain"
+                  src={`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg?default=false`}
+                  alt={book.title}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.src = "booknotfound.jpg"; // Set a fallback image
+                  }}
+                />
+                <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                  {book.title}
+                </h3>
+                <p className="text-base leading-7 text-gray-600">
+                  {book.author}
+                </p>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => addBookToDatabaseRec(book, userData.id)}
+                >
+                  Add to saved books
+                </button>
+              </li>
             ))}
           </ul>
         ) : error ? (

@@ -38,17 +38,17 @@ export default function SignUp() {
     }
 
     try {
-      const { error, user } = await handleSignUp(email, password, supabase);
+      const { user, error } = await handleSignUp(email, password, supabase);
       if (error) throw error;
 
       // setUsername("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-      alert("Sign up successful! Check your email to confirm your signup");
+      alert("Sign up successful! Please log in");
       // router.replace("/");
     } catch (err) {
-      console.error("ERROR at signup", err);
+      console.error("ERROR at signup", err.message);
     }
   };
   return (
