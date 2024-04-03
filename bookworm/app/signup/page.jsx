@@ -18,21 +18,46 @@ export default function SignUp() {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
       alert("Please enter a valid email address.");
       return;
     }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
-    if (!passwordRegex.test(password)) {
-      alert(
-        "Password must:\n- Be 8 to 32 characters long\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Contain at least one special character (e.g., !@#$%^&*)"
-      );
-      return;
-    }
+    // uncomment during live code demonstartion for password validation
+
+    // const errors = [];
+    // if (!/(?=.*[a-z])/.test(password)) {
+    //   errors.push("Password must contain at least one lowercase letter (a-z).");
+    // }
+    // if (!/(?=.*[A-Z])/.test(password)) {
+    //   errors.push("Password must contain at least one uppercase letter (A-Z).");
+    // }
+    // if (!/(?=.*\d)/.test(password)) {
+    //   errors.push("Password must contain at least one digit (0-9).");
+    // }
+    // if (!/(?=.*[@$!%*?&])/.test(password)) {
+    //   errors.push(
+    //     "Password must contain at least one special character among @$!%*?&."
+    //   );
+    // }
+    // if (!/[A-Za-z\d@$!%*?&]{8,32}/.test(password)) {
+    //   errors.push("Password must be between 8 and 32 characters in length.");
+    // }
+
+    // if (errors.length > 0) {
+    //   setPassword("");
+    //   setConfirmPassword("");
+    //   alert(errors.join("\n"));
+    //   return;
+    // }
 
     // Check if the passwords match
     if (password !== confirmPassword) {
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
       alert("Passwords do not match.");
       return;
     }
@@ -48,6 +73,7 @@ export default function SignUp() {
       alert("Sign up successful! Please log in");
       // router.replace("/");
     } catch (err) {
+      alert("ERROR at signup: " + err.message);
       console.error("ERROR at signup", err.message);
     }
   };

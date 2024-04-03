@@ -1,5 +1,5 @@
 export const handleSignUp = async (email, password, supabase) => {
-  console.log("SIGNING UP", email, password);
+  console.log("SIGNING UP", email);
   try {
     const response = await supabase.auth.signUp({
       email,
