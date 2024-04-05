@@ -72,34 +72,3 @@ export async function GET(request) {
   }
 }
 
-// export async function POST(request) {
-//   // userID is hardcoded right now, need to fix
-//   const userId = '69eda37f-dc8f-4799-9869-3372bff1928c';
-
-//   try {
-//     const bookTitles = await getUserSavedBooks(userId);
-
-//     const prompt = `Based on the following books: ${bookTitles.join(', ')}, what are 5 similar books you would recommend?`;
-
-//     const chatCompletion = await openai.chat.completions.create({
-//       model: "gpt-3.5-turbo",
-//       messages: [{ role: "user", content: prompt }],
-//     });
-
-//     return new Response(JSON.stringify({ recommendations: chatCompletion.choices[0].message }), {
-//       status: 200,
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-//   } catch (error) {
-
-//     console.error('Error processing request:', error);
-//     return new Response(JSON.stringify({ error: error.message || 'An error occurred while processing your request.' }), {
-//       status: 500,
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-//   }
-// }
