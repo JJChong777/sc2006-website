@@ -66,6 +66,7 @@ export default function Example() {
       console.error("Error inserting data into Supabase", error);
     } else {
       console.log("Successfully inserted genres into Supabase", data);
+      alert("Genres successfully saved!");
     }
   };
   

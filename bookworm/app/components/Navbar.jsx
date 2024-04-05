@@ -163,25 +163,6 @@ export default function Navbar() {
                   Recommend a a book
                 </Disclosure.Button>
               )}
-              {/* {isAuthenticated && (
-                <Disclosure.Button
-                  as="a"
-                  href="/userlibrary"
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-                >
-                  User Library
-                </Disclosure.Button>
-              )}
-              {isAuthenticated && (
-                <Disclosure.Button
-                  as="a"
-                  href="/logout"
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-                >
-                  Logout
-                </Disclosure.Button>
-              )} */}
-              {/* Add more mobile menu items as needed */}
             </div>
           </Disclosure.Panel>
         </>
