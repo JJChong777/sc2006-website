@@ -15,7 +15,15 @@ export default function UserLibrary() {
     );
     setBooks(sortedBooks);
   };
-
+  const handleremovebook = async (titleToRemove) => {
+    let { data: removedTitle, error } = await supabase
+      .from("userLibrary")
+      .delete()
+      .eq("user_id", userData.id)
+      .eq("booktitle", titleToRemove);
+      alert("Book Removed Successfully!");
+      window.location.reload();
+    };
   useEffect(() => {
     const fetchBooks = async () => {
       if (userData && userData.id) {
@@ -79,6 +87,14 @@ export default function UserLibrary() {
             {books.map((book, index) => (
               <li key={index} className="border p-4 rounded-md">
                 <h3 className="text-lg font-bold">{book.booktitle}</h3>
+                <li>
+                  <button
+                    onClick={() => handleremovebook(book.booktitle)}
+                    className="group flex items-center px-3 py-2 w-full text-left text-sm font-medium rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-50 pl-8"
+                  >
+                    Remove this book!
+                  </button>
+                </li>
               </li>
             ))}
           </ul>
