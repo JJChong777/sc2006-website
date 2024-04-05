@@ -10,6 +10,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
   // const router = useRouter();
 
   const onSignUp = async () => {
@@ -71,6 +72,7 @@ export default function SignUp() {
       setPassword("");
       setConfirmPassword("");
       alert("Sign up successful! Please log in");
+      router.push("/login");
       // router.replace("/");
     } catch (err) {
       alert("ERROR at signup: " + err.message);
