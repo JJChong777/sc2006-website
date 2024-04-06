@@ -28,31 +28,31 @@ export default function SignUp() {
 
     // uncomment during live code demonstartion for password validation
 
-    // const errors = [];
-    // if (!/(?=.*[a-z])/.test(password)) {
-    //   errors.push("Password must contain at least one lowercase letter (a-z).");
-    // }
-    // if (!/(?=.*[A-Z])/.test(password)) {
-    //   errors.push("Password must contain at least one uppercase letter (A-Z).");
-    // }
-    // if (!/(?=.*\d)/.test(password)) {
-    //   errors.push("Password must contain at least one digit (0-9).");
-    // }
-    // if (!/(?=.*[@$!%*?&])/.test(password)) {
-    //   errors.push(
-    //     "Password must contain at least one special character among @$!%*?&."
-    //   );
-    // }
-    // if (!/[A-Za-z\d@$!%*?&]{8,32}/.test(password)) {
-    //   errors.push("Password must be between 8 and 32 characters in length.");
-    // }
+    const errors = [];
+    if (!/(?=.*[a-z])/.test(password)) {
+      errors.push("Password must contain at least one lowercase letter (a-z).");
+    }
+    if (!/(?=.*[A-Z])/.test(password)) {
+      errors.push("Password must contain at least one uppercase letter (A-Z).");
+    }
+    if (!/(?=.*\d)/.test(password)) {
+      errors.push("Password must contain at least one digit (0-9).");
+    }
+    if (!/(?=.*[@$!%*?&])/.test(password)) {
+      errors.push(
+        "Password must contain at least one special character among @$!%*?&."
+      );
+    }
+    if (!/[A-Za-z\d@$!%*?&]{8,32}/.test(password)) {
+      errors.push("Password must be between 8 and 32 characters in length.");
+    }
 
-    // if (errors.length > 0) {
-    //   setPassword("");
-    //   setConfirmPassword("");
-    //   alert(errors.join("\n"));
-    //   return;
-    // }
+    if (errors.length > 0) {
+      setPassword("");
+      setConfirmPassword("");
+      alert(errors.join("\n"));
+      return;
+    }
 
     // Check if the passwords match
     if (password !== confirmPassword) {
