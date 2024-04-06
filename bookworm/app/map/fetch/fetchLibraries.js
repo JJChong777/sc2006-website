@@ -13,6 +13,7 @@ export default async function fetchLibraries() {
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
+    alert("Error fetching data!");
     // Handle errors appropriately (e.g., return default data, display error message)
   }
 }
