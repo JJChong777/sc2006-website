@@ -43,7 +43,7 @@ export default function SignUp() {
         "Password must contain at least one special character among @$!%*?&."
       );
     }
-    if (!/[A-Za-z\d@$!%*?&]{8,32}/.test(password)) {
+    if (password.length > 32 || password.length < 8) {
       errors.push("Password must be between 8 and 32 characters in length.");
     }
 
