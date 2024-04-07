@@ -128,9 +128,9 @@ const SearchPage = () => {
                 Available in
                 <ul className="text-gray-600 ">
                   {Array.isArray(availabilityData[book.isbns[0].trim()])
-                    ? availabilityData[book.isbns[0].trim()].map((loc) => (
-                        <li key={loc}>{loc}</li>
-                      ))
+                    ? availabilityData[book.isbns[0].trim()].map(
+                        (loc, index) => <li key={index}>{loc}</li>
+                      )
                     : null}
                 </ul>
               </p>

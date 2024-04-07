@@ -272,6 +272,7 @@ function Map() {
   function ChangeCenter({ position }) {
     const map = useMap();
     console.log(position);
+    map.setZoom(15);
     map.setView(position);
     return null;
   }
