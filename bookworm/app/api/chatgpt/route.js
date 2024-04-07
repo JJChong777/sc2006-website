@@ -15,7 +15,7 @@ async function getUserSavedBooks(userId) {
   const { data, error } = await supabase
     .from("userLibrary")
     .select("booktitle")
-    .eq("user_id", userId);
+    .eq("user_id", userId); 
 
   if (error) {
     console.error("Supabase error:", error);
@@ -26,20 +26,42 @@ async function getUserSavedBooks(userId) {
   return data.map((book) => book.booktitle);
 }
 
+async function getUserSavedGenres(userId) {
+  console.log("Attempting to fetch genres for userID:", userId);
+  const { data, error } = await supabase
+    .from("genre")
+    .select("genre")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Supabase error:", error);
+    throw new Error("Failed to fetch user's preferred genres.");
+  }
+
+  console.log("Genres fetched successfully:", data);
+  return data.map((entry) => entry.genre);
+}
+
 export async function GET(request) {
-  // userID is hardcoded right now, need to fix
   const userId = request.nextUrl.searchParams.get("userId");
-  if (!userId)
-    return NextResponse.json({
+  if (!userId) {
+    return new Response(JSON.stringify({
       error: "No userId specified, try ?userId={userId here}",
+    }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+  }
 
   try {
     const bookTitles = await getUserSavedBooks(userId);
+    const genres = await getUserSavedGenres(userId);
 
     const prompt = `Based on the following books: ${bookTitles.join(
       ", "
-    )}, what are 5 similar book ISBNs and author you would recommend? Only provide a RFC8259 compliant JSON response, following this format without deviation. The overall object key must be books, and each item in the JSON response must only have object keys of title, ISBN and author respectively, with no dashes in the ISBN`;
+    )} and preferred genres: ${genres.join(", ")}, what are 5 similar book ISBNs and authors you would recommend? Only provide a RFC8259 compliant JSON response, following this format without deviation. The overall object key must be books, and each item in the JSON response must only have object keys of title, ISBN, and author respectively, with no dashes in the ISBN`;
 
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -61,8 +83,7 @@ export async function GET(request) {
       JSON.stringify({
         error:
           error.message || "An error occurred while processing your request.",
-      }),
-      {
+      }), {
         status: 500,
         headers: {
           "Content-Type": "application/json",
