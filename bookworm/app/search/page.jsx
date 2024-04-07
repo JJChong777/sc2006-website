@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../auth/authentication_functions/AuthContext";
 import { addBookToDatabaseSearch } from "./helper/addbooksearch";
 const SearchPage = () => {
-  const { userData } = useAuth();
+  const { isAuthenticated, userData } = useAuth();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
@@ -135,14 +135,16 @@ const SearchPage = () => {
                 </ul>
               </p>
             )}
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() =>
-                book.isbns?.[0] && addBookToDatabaseSearch(book, userData?.id)
-              }
-            >
-              Add to saved books
-            </button>
+            {isAuthenticated && (
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() =>
+                  book.isbns?.[0] && addBookToDatabaseSearch(book, userData?.id)
+                }
+              >
+                Add to saved books
+              </button>
+            )}
           </li>
         ))}
       </ul>
