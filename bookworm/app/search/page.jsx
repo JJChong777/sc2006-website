@@ -26,6 +26,7 @@ const SearchPage = () => {
 
       const books = await response.json();
       setBookQuery(books);
+      console.log(books)
 
       if (books.length > 0) {
         router.replace("/search");

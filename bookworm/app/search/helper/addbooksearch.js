@@ -29,6 +29,7 @@ async function addBookToDatabaseSearch(book, userId) {
         ISBN: book.isbns[0].trim(),
         booktitle: book.title,
         user_id: userId,
+        author: book.author,
       },
     ]);
 
