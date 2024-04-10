@@ -171,7 +171,8 @@ const BookRecommendations = () => {
           <p className="mx-auto text-red-700 text-3xl">{error}</p>
         ) : isLoading ? (
           <p className="mx-auto text-green-700 text-3xl">
-            ChatGPT is loading recommendations...
+            Loading recommendations based on your genre preference and saved
+            books...
           </p>
         ) : (
           <p className="mx-auto text-3xl">No recommendations yet.</p>
