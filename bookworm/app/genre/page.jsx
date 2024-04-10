@@ -5,12 +5,28 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase = createClientComponentClient();
 
-export default function Example() {
+export default function genre() {
   const genres = [
-    "Art", "Biography", "Business", "Chick Lit", "Children's", "Christian",
-    "Classics", "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks",
-    "Fantasy", "Fiction", "Non-Fiction", "Graphic Novels",
-    "Historical Fiction", "History", "Horror", "Humor and Comedy",
+    "Art",
+    "Biography",
+    "Business",
+    "Chick Lit",
+    "Children's",
+    "Christian",
+    "Classics",
+    "Comics",
+    "Contemporary",
+    "Cookbooks",
+    "Crime",
+    "Ebooks",
+    "Fantasy",
+    "Fiction",
+    "Non-Fiction",
+    "Graphic Novels",
+    "Historical Fiction",
+    "History",
+    "Horror",
+    "Humor and Comedy",
   ];
 
   const { userData } = useAuth();
@@ -23,18 +39,18 @@ export default function Example() {
   async function fetchGenres() {
     try {
       const { data, error } = await supabase
-        .from('genre')
-        .select('genre')
-        .eq('user_id', userData?.id);
+        .from("genre")
+        .select("genre")
+        .eq("user_id", userData?.id);
 
       if (error) {
         throw error;
       }
 
-      const uniqueGenres = Array.from(new Set(data.map(g => g.genre)));
+      const uniqueGenres = Array.from(new Set(data.map((g) => g.genre)));
       setSavedGenres(uniqueGenres);
     } catch (error) {
-      console.error('Error fetching genres:', error);
+      console.error("Error fetching genres:", error);
     }
   }
 
@@ -48,7 +64,7 @@ export default function Example() {
     const value = event.target.value;
     const updatedGenres = event.target.checked
       ? [...selectedGenres, value]
-      : selectedGenres.filter(genre => genre !== value);
+      : selectedGenres.filter((genre) => genre !== value);
     setSelectedGenres(updatedGenres);
   };
 
@@ -58,18 +74,43 @@ export default function Example() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const uniqueGenres = Array.from(new Set([...selectedGenres, otherGenre.trim()])).filter(Boolean);
-    const newGenres = uniqueGenres.filter(genre => !savedGenres.includes(genre));
+    const uniqueGenres = Array.from(
+      new Set([...selectedGenres, otherGenre.trim()])
+    ).filter(Boolean);
+    const newGenres = uniqueGenres.filter(
+      (genre) => !savedGenres.includes(genre)
+    );
 
     if (newGenres.length > 0) {
       try {
-        await supabase
+        const { data: existingGenres, error } = await supabase
           .from("genre")
-          .insert(newGenres.map(genre => ({ genre, user_id: userData.id })));
-        fetchGenres(); // Refresh the list of saved genres
-        setOtherGenre("");
-        setSelectedGenres([]);
-        alert("Genres successfully saved!");
+          .select("genre")
+          .eq("user_id", userData.id);
+
+        if (error) {
+          throw error;
+        }
+
+        const existingGenreNames = existingGenres.map((g) => g.genre);
+
+        const genresToAdd = newGenres.filter(
+          (genre) => !existingGenreNames.includes(genre)
+        );
+
+        if (genresToAdd.length > 0) {
+          await supabase
+            .from("genre")
+            .insert(
+              genresToAdd.map((genre) => ({ genre, user_id: userData.id }))
+            );
+          fetchGenres(); 
+          setOtherGenre("");
+          setSelectedGenres([]);
+          alert("Genres successfully saved!");
+        } else {
+          alert("No new genres to add or already saved.");
+        }
       } catch (error) {
         console.error("Error saving genres:", error);
       }
@@ -89,7 +130,7 @@ export default function Example() {
         throw error;
       }
 
-      fetchGenres(); // Refresh the list of saved genres after removal
+      fetchGenres(); 
       alert(`Genre '${genreToRemove}' removed successfully.`);
     } catch (error) {
       console.error("Error removing genre:", error);
