@@ -84,7 +84,7 @@ const BookRecommendations = () => {
         ) : isLoading ? (
           <p className="mx-auto text-green-700 text-xl">
             Loading recommendations based on your genre preference and saved
-            books...
+            books....
           </p>
         ) : (
           <p className="mx-auto text-3xl">No recommendations yet.</p>
