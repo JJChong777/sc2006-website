@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const { router } = useRouter();
+  const router = useRouter();
 
   const resetPassword = async () => {
     console.log("resetting password");

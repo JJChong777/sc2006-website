@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  // const { router } = useRouter();
-
+  const router = useRouter(); 
   async function sendResetPassword() {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,8 +22,7 @@ export default function ForgotPassword() {
       if (error) throw error;
       setEmail("");
       alert("Reset password successful! Check your email");
-      // router.push("/");
-      // cannot read undefined (and I don't know why)
+      router.replace("/login");
     } catch (error) {
       console.error(error);
       alert(`ERROR: ${error.message}`);
