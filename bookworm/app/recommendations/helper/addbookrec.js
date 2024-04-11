@@ -29,6 +29,7 @@ async function addBookToDatabaseRec(book, userId) {
         ISBN: book.ISBN,
         booktitle: `${book.title} / ${book.author}`,
         user_id: userId,
+        author: book.author,
       },
     ]);
 
