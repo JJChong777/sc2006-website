@@ -5,7 +5,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase = createClientComponentClient();
 
-export default function genre() {
+export default function GenrePage() {
   const genres = [
     "Art",
     "Biography",
@@ -104,7 +104,7 @@ export default function genre() {
             .insert(
               genresToAdd.map((genre) => ({ genre, user_id: userData.id }))
             );
-          fetchGenres(); 
+          fetchGenres();
           setOtherGenre("");
           setSelectedGenres([]);
           alert("Genres successfully saved!");
@@ -130,7 +130,7 @@ export default function genre() {
         throw error;
       }
 
-      fetchGenres(); 
+      fetchGenres();
       alert(`Genre '${genreToRemove}' removed successfully.`);
     } catch (error) {
       console.error("Error removing genre:", error);
@@ -159,7 +159,10 @@ export default function genre() {
                   onChange={handleCheckboxChange}
                   className="mr-2"
                 />
-                <label htmlFor={`genre-${index}`} className="text-sm sm:text-base">
+                <label
+                  htmlFor={`genre-${index}`}
+                  className="text-sm sm:text-base"
+                >
                   {genre}
                 </label>
               </div>
@@ -187,7 +190,10 @@ export default function genre() {
           <h3 className="text-lg font-semibold text-gray-900">Saved Genres:</h3>
           <ul className="mt-2 list-disc list-inside text-gray-600">
             {savedGenres.map((genre, index) => (
-              <li key={index} className="flex justify-between items-center mt-2">
+              <li
+                key={index}
+                className="flex justify-between items-center mt-2"
+              >
                 <span className="text-sm sm:text-base">{genre}</span>
                 <button
                   onClick={() => removeGenre(genre)}
